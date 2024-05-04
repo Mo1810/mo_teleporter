@@ -16,5 +16,6 @@ For support please write an issue and I will proceed it as soon as possible. Or 
   - define whether the teleporter should be two-ways or only one-way
   - define marker style (type, color[r,g,b,a], scale, ...)
   - `label` in config is just for displaying a notification ingame
+  - ![Imgur](https://imgur.com/XNCxUxO)
 - in `standalone` edition you can add your own notification-export/function by adding it in `teleporter-c.lua`, line `16`
 - for further assistance follow the mentioned options above
