@@ -26,16 +26,20 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		for k,teleporter in ipairs(Config.teleporter) do
-			while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.from) <= teleporter.distance do
+			while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.from) <= teleporter.markerDistance do
 				Marker(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.marker)
-				ControlListener(vector3(teleporter.to.x, teleporter.to.y, teleporter.to.z), teleporter.to.w)
-				TriggerEvent('teleporter:drawInfoText', teleporter.label)
+				if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.from) <= teleporter.distance then
+					ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w)
+					TriggerEvent('teleporter:drawInfoText', teleporter.label)
+				end
 				Citizen.Wait(4)
 			end
-			while (GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.to) <= teleporter.distance and teleporter.reversable) do
+			while (GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.to) <= teleporter.markerDistance and teleporter.reversable) do
 				Marker(vector3(teleporter.to.x, teleporter.to.y, teleporter.to.z), teleporter.marker)
-				ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w)
-				TriggerEvent('teleporter:drawInfoText', teleporter.label)
+				if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.to) <= teleporter.distance then
+					ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w)
+					TriggerEvent('teleporter:drawInfoText', teleporter.label)
+				end
 				Citizen.Wait(4)
 			end
 		end
