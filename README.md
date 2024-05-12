@@ -4,12 +4,13 @@ Teleport-Creation Script for FiveM [lua;standalone/esx]
 For support please write an issue and I will proceed it as soon as possible. Or feel free to join my discord and ask for help. Link in my profile.
 
 ### ! THERE ARE TWO OPTIONS, STANDALONE OR WITH ESX (just for one notification, while standing in a marker) !
+### If you want to use 'ESX version', remove first two dashes at `teleporter-c.lua line 13` and `fxmanifest.lua line 8 AND 17`.
 
 # INSTALL
 - Click green button `Code` 
 - "Download ZIP"
-- Open zip file, open folders until you see `README.md` and extract folder `mo_teleporter`/`mo_teleporter-standalone` into your resources
-- Put `ensure mo_teleporter`/`ensure mo_teleporter-standalone` in `server.cfg`
+- Open zip file, open folders until you see `README.md` and extract folder `mo_teleporter-standalone` into your resources
+- Put `ensure mo_teleporter-standalone` in `server.cfg`
 
 # HOW IT WORKS
 - Add your teleporters into `config.lua` file
