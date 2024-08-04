@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
 			while GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.from) <= teleporter.markerDistance do
 				Marker(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.marker)
 				if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.from) <= teleporter.distance then
-					ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w)
+					ControlListener(vector3(teleporter.to.x, teleporter.to.y, teleporter.to.z), teleporter.to.w, (teleporter.vehicle or false))
 					TriggerEvent('teleporter:drawInfoText', teleporter.label)
 				end
 				Citizen.Wait(4)
@@ -37,7 +37,7 @@ Citizen.CreateThread(function()
 			while (GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.to) <= teleporter.markerDistance and teleporter.reversable) do
 				Marker(vector3(teleporter.to.x, teleporter.to.y, teleporter.to.z), teleporter.marker)
 				if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), teleporter.to) <= teleporter.distance then
-					ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w)
+					ControlListener(vector3(teleporter.from.x, teleporter.from.y, teleporter.from.z), teleporter.from.w, (teleporter.vehicle or false))
 					TriggerEvent('teleporter:drawInfoText', teleporter.label)
 				end
 				Citizen.Wait(4)
@@ -65,9 +65,14 @@ function Marker(coords, marker)
 	)
 end
 
-function ControlListener(coords, heading)
+function ControlListener(coords, heading, vehicle)
 	if IsControlJustReleased(0, Config.triggerKey) then
-		SetEntityCoords(PlayerPedId(), coords-vec3(0,0,1), true, true, false, false)
+		if vehicle then
+			SetPedCoordsKeepVehicle(PlayerPedId(), coords-vec3(0.0, 0.0, 1.0))
+		else
+			SetEntityCoords(PlayerPedId(), coords-vec3(0.0, 0.0, 1.0), true, true, false, false)
+		end
+		
 		SetEntityHeading(PlayerPedId(), heading)
 	end
 end
